@@ -1,0 +1,140 @@
+eth:
+    mainnet:
+        endpoint_public: https://eth.llamarpc.com
+        chain_id: 1
+        chain_name: ETH
+        scan: https://etherscan.io
+        default_gasprice: 20
+    testnet:
+        endpoint_public: https://rinkeby.infura.io/v3
+        chain_id: 4
+        chain_name: Rinkeby
+        scan: https://rinkeby.etherscan.io
+        default_gasprice: 20
+
+pol:
+    mainnet:
+        endpoint_public: https://polygon-rpc.com
+        chain_id: 137
+        chain_name: Polygon
+        scan: https://polygonscan.com
+        default_gasprice: 50
+    testnet:
+        endpoint_public: https://rpc-mumbai.maticvigil.com
+        chain_id: 80001
+        chain_name: PolygonMumbai
+        scan: https://mumbai.polygonscan.com
+        default_gasprice: 50
+
+op:
+    mainnet:
+        endpoint_public: https://optimism.llamarpc.com
+        chain_id: 10
+        chain_name: Optimism
+        scan: https://optimistic.etherscan.io
+        default_gasprice: 1
+    testnet:
+        endpoint_public: https://endpoints.omniatech.io/v1/op/goerli/public
+        chain_id: 420
+        chain_name: OptimismGoerli
+        scan: https://goerli-optimism.etherscan.io
+        default_gasprice: 1
+
+arb:
+    mainnet:
+        endpoint_public: https://arbitrum.llamarpc.com
+        chain_id: 42161
+        chain_name: Arbitrum
+        scan: https://arbiscan.io
+        default_gasprice: 1
+    testnet:
+        endpoint_public: https://endpoints.omniatech.io/v1/arbitrum/goerli/public
+        chain_id: 421613
+        chain_name: ArbitrumGoerli
+        scan: https://goerli.arbiscan.io
+        default_gasprice: 1
+
+ava:
+    mainnet:
+        endpoint_public: https://api.avax.network/ext/bc/C/rpc
+        chain_id: 43114
+        chain_name: Avalanche
+        scan: https://snowtrace.io
+        default_gasprice: 50
+    testnet:
+        endpoint_public: https://api.avax-test.network/ext/bc/C/rpc
+        chain_id: 43113
+        chain_name: AvalancheFuji
+        scan: https://snowtrace.io
+        default_gasprice: 50
+
+linea:
+    mainnet:
+        endpoint_public: https://mainnet.infura.io/v3
+        chain_id: 59144
+        chain_name: Linea
+        scan: https://lineascan.build
+        default_gasprice: 3
+    testnet:
+        endpoint_public: 
+        chain_id: 59143
+        chain_name: LineaGoerli
+        scan:
+        default_gasprice: 3
+
+celo:
+    mainnet:
+        endpoint_public: https://celo-mainnet.infura.io/v3
+        chain_id: 42220
+        chain_name: Celo
+        scan: https://celoscan.io
+        default_gasprice: 5
+    testnet:
+        endpoint_public: https://celo-alfajores.infura.io/v3
+        chain_id: 44787
+        chain_name: CeloAlfajores
+        scan: https://alfajores.celoscan.io
+        default_gasprice: 5
+
+ftm:
+    mainnet:
+        endpoint_public: https://rpcapi.fantom.network
+        chain_id: 250
+        chain_name: Fantom
+        scan: https://ftmscan.com
+        default_gasprice: 25
+    testnet:
+        endpoint_public: https://rpc.testnet.fantom.network
+        chain_id: 4002
+        chain_name: FantomTestnet
+        scan: https://testnet.ftmscan.com
+        default_gasprice: 25
+
+cfx:
+    mainnet:
+        endpoint_public: https://evm.confluxrpc.com
+        chain_id: 1030
+        chain_name: CFX
+        scan: https://evm.confluxscan.net
+        default_gasprice: 20
+    testnet:
+        endpoint_public: https://evm.confluxrpc.com
+        chain_id: 1030
+        chain_name: CFX
+        scan: https://evm.confluxscan.net
+        default_gasprice: 20
+
+bsc:
+    mainnet:
+        endpoint_public: https://binance.llamarpc.com
+        chain_id: 56
+        chain_name: BSC
+        scan: https://bscscan.com
+        default_gasprice: 5
+    testnet:
+        endpoint_public: https://data-seed-prebsc-1-s1.binance.org:8545
+        chain_id: 97
+        chain_name: BSCTestnet
+        scan: https://testnet.bscscan.com
+        default_gasprice: 5
+
