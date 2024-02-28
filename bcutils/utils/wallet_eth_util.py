@@ -26,10 +26,6 @@ from .retry import retry
 logger = logging.getLogger(__name__)
 
 
-EVM_PATH = Path(Path(__file__).parents[1].resolve(), "evm.yaml")
-EVM = yaml.safe_load(open(EVM_PATH))
-
-
 class AsyncWalletETHEncoder(json.JSONEncoder):
     def default(self, obj):
         if isinstance(obj, Decimal):
@@ -45,23 +41,21 @@ class AsyncWalletETHEncoder(json.JSONEncoder):
 
 class AsyncWalletETHBasic(object):
 
-    def __init__(self, chain, wallet_address, wallet_privkey, mainnet=True):
+    def __init__(self, evm, chain, wallet_address, wallet_privkey, mainnet=True):
 
         chain = chain.lower()
         self.network = "mainnet" if mainnet else "testnet"
-        assert chain in EVM, f"BlockChain Not Support[{chain}]"
+        assert chain in evm, f"BlockChain Not Support[{chain}]"
 
         self.chain = chain
-        self.evm = EVM[self.chain][self.network]
+        self.evm = evm[self.chain][self.network]
         self.endpoint = self.evm["endpoint_public"]
         self.chain_id = self.evm["chain_id"]
         self.scan = self.evm["scan"]
 
-        # web3 客户端
         self.web3 = Web3(Web3.HTTPProvider(self.endpoint))
         self.nonce_lock = asyncio.Lock()
 
-        # 钱包账户信息
         self.wallet_address = self.web3.to_checksum_address(wallet_address)
         self.wallet_privkey = wallet_privkey
 
@@ -202,7 +196,6 @@ class AsyncWalletETHBasic(object):
             "transaction_from": "ether",
         }
 
-        # transfer详情
         gasprice = await self.get_gasprice(upper=gas_upper)
         if self.chain == "cfx":
             gasprice = max(gasprice, 100000000000)
@@ -220,21 +213,19 @@ class AsyncWalletETHBasic(object):
             tx["data"] = data
         if need_from:
             tx["from"] = self.wallet_address
-        # gas预估
+
         tx["gas"] = await to_thread(self.web3.eth.estimate_gas, tx)
         transaction["raw_transaction"] = tx
         transaction["ether:estimate_fee-wei"] = int(tx["gasPrice"] * tx["gas"])
         transaction["ether:balance-wei"] = await self.get_wallet_balance(wei=True)
         transaction["ether:value-wei"] = tx["value"]
 
-        # 对交易进行签名
         sign_tx = await to_thread(
             self.web3.eth.account.sign_transaction,
             tx,
             self.wallet_privkey,
         )
 
-        # 发送交易到区块链网络
         response = await to_thread(
             self.web3.eth.send_raw_transaction,
             sign_tx.rawTransaction)

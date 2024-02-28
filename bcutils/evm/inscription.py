@@ -5,7 +5,7 @@ import asyncio
 import logging
 from asyncio import to_thread
 
-from .wallet_eth_util import AsyncWalletETHBasic, AsyncWalletETHEncoder
+from ..utils.wallet_eth_util import AsyncWalletETHBasic, AsyncWalletETHEncoder
 
 
 def str2hexstr(s):
@@ -15,9 +15,9 @@ def str2hexstr(s):
 
 
 
-async def bulkmint(chain, address, private, to_address, datahex, count, waiting=1, gas_upper=1.1):
+async def bulkmint(evm, chain, address, private, to_address, datahex, count, waiting=1, gas_upper=1.1):
     assert count > 0, f"Mint Count Error => [{count}]"
-    wallet = AsyncWalletETHBasic(chain, address, private, mainnet=True)
+    wallet = AsyncWalletETHBasic(evm, chain, address, private, mainnet=True)
     nonce = await wallet.get_wallet_nonce()
     for idx in range(count):
         try:
@@ -37,8 +37,8 @@ async def bulkmint(chain, address, private, to_address, datahex, count, waiting=
         await asyncio.sleep(waiting)
 
 
-async def ierc_mint(chain, address, private, tick, amt, nonce=-1, prefix="0x0000"):
-    wallet = AsyncWalletETHBasic(chain, address, private, mainnet=True)
+async def ierc_mint(evm, chain, address, private, tick, amt, nonce=-1, prefix="0x0000"):
+    wallet = AsyncWalletETHBasic(evm, chain, address, private, mainnet=True)
     if nonce == -1:
         nonce = await wallet.get_wallet_nonce()
     gasprice = await wallet.get_gasprice(upper=1.1)
@@ -71,48 +71,48 @@ async def ierc_mint(chain, address, private, tick, amt, nonce=-1, prefix="0x0000
     return response
 
 
-async def eth_bulkmint_dataraw(address, private, to_address, dataraw, count):
+async def eth_bulkmint_dataraw(evm, address, private, to_address, dataraw, count):
     datahex = str2hexstr(dataraw)
-    await bulkmint("eth", address, private, to_address, datahex, count)
+    await bulkmint(evm, "eth", address, private, to_address, datahex, count)
 
 
-async def pol_bulkmint_dataraw(address, private, to_address, dataraw, count):
+async def pol_bulkmint_dataraw(evm, address, private, to_address, dataraw, count):
     datahex = str2hexstr(dataraw)
-    await bulkmint("pol", address, private, to_address, datahex, count, gas_upper=1.05)
+    await bulkmint(evm, "pol", address, private, to_address, datahex, count, gas_upper=1.05)
 
 
-async def op_bulkmint_dataraw(address, private, to_address, dataraw, count):
+async def op_bulkmint_dataraw(evm, address, private, to_address, dataraw, count):
     datahex = str2hexstr(dataraw)
-    await bulkmint("op", address, private, to_address, datahex, count)
+    await bulkmint(evm, "op", address, private, to_address, datahex, count)
 
 
-async def arb_bulkmint_dataraw(address, private, to_address, dataraw, count):
+async def arb_bulkmint_dataraw(evm, address, private, to_address, dataraw, count):
     datahex = str2hexstr(dataraw)
-    await bulkmint("arb", address, private, to_address, datahex, count)
+    await bulkmint(evm, "arb", address, private, to_address, datahex, count)
 
 
-async def ava_bulkmint_dataraw(address, private, to_address, dataraw, count):
+async def ava_bulkmint_dataraw(evm, address, private, to_address, dataraw, count):
     datahex = str2hexstr(dataraw)
-    await bulkmint("ava", address, private, to_address, datahex, count)
+    await bulkmint(evm, "ava", address, private, to_address, datahex, count)
 
 
-async def linea_bulkmint_dataraw(address, private, to_address, dataraw, count):
+async def linea_bulkmint_dataraw(evm, address, private, to_address, dataraw, count):
     datahex = str2hexstr(dataraw)
-    await bulkmint("linea", address, private, to_address, datahex, count)
+    await bulkmint(evm, "linea", address, private, to_address, datahex, count)
 
 
-async def celo_bulkmint_dataraw(address, private, to_address, dataraw, count):
+async def celo_bulkmint_dataraw(evm, address, private, to_address, dataraw, count):
     datahex = str2hexstr(dataraw)
-    await bulkmint("celo", address, private, to_address, datahex, count)
+    await bulkmint(evm, "celo", address, private, to_address, datahex, count)
 
 
-async def ftm_bulkmint_dataraw(address, private, to_address, dataraw, count, waiting=30):
+async def ftm_bulkmint_dataraw(evm, address, private, to_address, dataraw, count, waiting=30):
     datahex = str2hexstr(dataraw)
-    await bulkmint("ftm", address, private, to_address, datahex, count, waiting=waiting, gas_upper=1.05)
+    await bulkmint(evm, "ftm", address, private, to_address, datahex, count, waiting=waiting, gas_upper=1.05)
 
 
-async def bsc_bulkmint_dataraw(address, private, to_address, dataraw, count):
+async def bsc_bulkmint_dataraw(evm, address, private, to_address, dataraw, count):
     datahex = str2hexstr(dataraw)
-    await bulkmint("bsc", address, private, to_address, datahex, count)
+    await bulkmint(evm, "bsc", address, private, to_address, datahex, count)
 
 
