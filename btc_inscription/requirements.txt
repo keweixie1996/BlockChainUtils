@@ -8,4 +8,5 @@ hdwallet==2.2.1
 tronpy==0.4.0
 pyyaml==6.0.1
 fire==0.5.0
-bitcoin-utils=0.6.5
+bitcoin-utils==0.6.5
+loguru==0.7.2
